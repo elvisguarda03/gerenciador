@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>gerenciador</display-name>
+	
+	<welcome-file-list>
+		<welcome-file>bem-vindo.html</welcome-file>
+	</welcome-file-list>
+	
+	<filter>
+		<filter-name>MF</filter-name>
+		<filter-class>br.com.alura.gerenciador.servlet.MonitoramentoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MF</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- Definindo a ordem de execução dos filtros. Só é possível definir essa ordem por meio do web.xml -->
+	<filter>
+		<filter-name>AF</filter-name>
+		<filter-class>br.com.alura.gerenciador.servlet.AuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AF</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<!--Alias para o servlet-->
+		<servlet-name>OiMundoServlet</servlet-name>
+		<servlet-class>br.com.alura.gerenciador.servlet.OiMundoServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<!-- Associando o servlet com o mapping através do alias. -->
+		<servlet-name>OiMundoServlet</servlet-name>
+		<url-pattern>/ola</url-pattern>
+	</servlet-mapping>
+	
+	<session-config>
+		<!-- Se o (client) não utilizar a aplicação dentro de 30 minutos o objeto HttpSession será destruído. -->
+		<session-timeout>30</session-timeout>
+	
+		<!-- Disables URL-based sessions (no more 'jsessionid' in the URL using 
+			Tomcat) -->
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+</web-app>
